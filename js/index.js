@@ -1,13 +1,16 @@
 import imagesList from './gallery-items.js'
 
-const listGallery = document.querySelector('.js-gallery')
+const listGalleryRef = document.querySelector('.js-gallery')
+const lightboxRef = document.querySelector('.lightbox')
+const closeBtn = document.querySelector('.lightbox__button')
+const lightBoxImage = document.querySelector('.lightbox__image');
+// console.log(lightBoxImage.getAttribute('src'))
+
 const resultCreatImageElement = createImageElement(imagesList);
 
-
-listGallery.insertAdjacentHTML('beforeend', resultCreatImageElement)
-listGallery.addEventListener('click',onTargetImgClick)
-
-
+listGalleryRef.insertAdjacentHTML('beforeend', resultCreatImageElement)
+listGalleryRef.addEventListener('click', onTargetImgClick)
+closeBtn.addEventListener('click',onBtnClickClose)
 
 
 // function createImageElement(item) {
@@ -29,9 +32,6 @@ listGallery.addEventListener('click',onTargetImgClick)
 //     }).join('')
 // }
 
-
-
-
 function createImageElement(item) {
    return item.map(({preview,original}) => {
         return `
@@ -43,26 +43,37 @@ function createImageElement(item) {
             data-source="${original}"
              alt="Tulips"
          />
-       
         </li>
         `
     }).join('')
 }
 
 
+
+
 function onTargetImgClick(e) {
     const elementTarget = e.target;
     const IsImageElement = elementTarget.classList.contains('gallery__image');
     const elementDataSource = elementTarget.dataset.source;
+    // const altValue = 
+
 
     if (!IsImageElement) {
         return 
     }
 
-  console.log(elementTarget.dataset.source)
+    lightboxRef.classList.add('is-open');
+    lightBoxImage.src =`${elementDataSource}`
+    lightBoxImage.alt =`${elementDataSource}`
+
+
+
+//   console.log(elementTarget.dataset.source)
 }
 
-
+function onBtnClickClose(e) {
+    lightboxRef.classList.remove('is-open');
+}
 
 
 
