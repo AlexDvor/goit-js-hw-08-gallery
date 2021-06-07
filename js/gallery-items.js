@@ -63,4 +63,3 @@ export default [
     description: 'Lighthouse Coast Sea',
   },
 ];
-© 2021 GitHub, Inc.
