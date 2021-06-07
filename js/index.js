@@ -3,14 +3,17 @@ import imagesList from './gallery-items.js'
 const listGalleryRef = document.querySelector('.js-gallery')
 const lightboxRef = document.querySelector('.lightbox')
 const closeBtn = document.querySelector('.lightbox__button')
-const lightBoxImage = document.querySelector('.lightbox__image');
-// console.log(lightBoxImage.getAttribute('src'))
+const lightBoxImage = document.querySelector('img.lightbox__image');
+
+
 
 const resultCreatImageElement = createImageElement(imagesList);
 
 listGalleryRef.insertAdjacentHTML('beforeend', resultCreatImageElement)
 listGalleryRef.addEventListener('click', onTargetImgClick)
-closeBtn.addEventListener('click',onBtnClickClose)
+closeBtn.addEventListener('click', onBtnClickClose)
+
+
 
 
 // function createImageElement(item) {
@@ -33,7 +36,7 @@ closeBtn.addEventListener('click',onBtnClickClose)
 // }
 
 function createImageElement(item) {
-   return item.map(({preview,original}) => {
+   return item.map(({preview,original,description}) => {
         return `
         <li class="gallery__item">
     
@@ -41,7 +44,7 @@ function createImageElement(item) {
             class="gallery__image"
             src="${preview}"
             data-source="${original}"
-             alt="Tulips"
+             alt="${description}"
          />
         </li>
         `
@@ -49,31 +52,26 @@ function createImageElement(item) {
 }
 
 
-
-
 function onTargetImgClick(e) {
+  
     const elementTarget = e.target;
     const IsImageElement = elementTarget.classList.contains('gallery__image');
     const elementDataSource = elementTarget.dataset.source;
-    // const altValue = 
-
-
+    const altValue = elementTarget.getAttribute('alt');
+   
     if (!IsImageElement) {
         return 
     }
 
     lightboxRef.classList.add('is-open');
     lightBoxImage.src =`${elementDataSource}`
-    lightBoxImage.alt =`${elementDataSource}`
+    lightBoxImage.alt =`${altValue}`
 
-
-
-//   console.log(elementTarget.dataset.source)
 }
 
 function onBtnClickClose(e) {
-    lightboxRef.classList.remove('is-open');
-}
+     lightboxRef.classList.remove('is-open');
+ }
 
 
 
