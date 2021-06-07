@@ -1,9 +1,9 @@
 import imagesList from './gallery-items.js'
 
 const listGalleryRef = document.querySelector('.js-gallery')
-const lightboxRef = document.querySelector('.lightbox')
-const closeBtn = document.querySelector('.lightbox__button')
-const lightBoxImage = document.querySelector('img.lightbox__image');
+const lightboxRef = document.querySelector('.js-lightbox')
+const closeBtnRef = document.querySelector('.lightbox__button')
+const lightBoxImageRef = document.querySelector('img.lightbox__image');
 
 
 
@@ -11,7 +11,7 @@ const resultCreatImageElement = createImageElement(imagesList);
 
 listGalleryRef.insertAdjacentHTML('beforeend', resultCreatImageElement)
 listGalleryRef.addEventListener('click', onTargetImgClick)
-closeBtn.addEventListener('click', onBtnClickClose)
+closeBtnRef.addEventListener('click', onBtnClickClose)
 
 
 
@@ -35,6 +35,7 @@ closeBtn.addEventListener('click', onBtnClickClose)
 //     }).join('')
 // }
 
+
 function createImageElement(item) {
    return item.map(({preview,original,description}) => {
         return `
@@ -53,6 +54,7 @@ function createImageElement(item) {
 
 
 function onTargetImgClick(e) {
+    
   
     const elementTarget = e.target;
     const IsImageElement = elementTarget.classList.contains('gallery__image');
@@ -60,12 +62,13 @@ function onTargetImgClick(e) {
     const altValue = elementTarget.getAttribute('alt');
    
     if (!IsImageElement) {
-        return 
+        return
     }
+  
 
     lightboxRef.classList.add('is-open');
-    lightBoxImage.src =`${elementDataSource}`
-    lightBoxImage.alt =`${altValue}`
+    lightBoxImageRef.src =`${elementDataSource}`
+    lightBoxImageRef.alt =`${altValue}`
 
 }
 
