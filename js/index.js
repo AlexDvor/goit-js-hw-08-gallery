@@ -2,9 +2,9 @@ import imagesList from './gallery-items.js'
 
 const listGalleryRef = document.querySelector('.js-gallery')
 const lightboxRef = document.querySelector('.js-lightbox')
-const closeBtnRef = document.querySelector('.lightbox__button')
+const closeBtnRef = document.querySelector('[data-action="close-lightbox"]');
 const lightBoxImageRef = document.querySelector('img.lightbox__image');
-
+const overlayRef = document.querySelector('.lightbox__overlay');
 
 
 const resultCreatImageElement = createImageElement(imagesList);
@@ -15,47 +15,28 @@ closeBtnRef.addEventListener('click', onBtnClickClose)
 
 
 
-
-// function createImageElement(item) {
-//    return item.map(({preview,original}) => {
-//         return `
-//         <li class="gallery__item">
-//         <a
-//             class="gallery__link"
-//             href="${original}">
-//         <img
-//             class="gallery__image"
-//             src="${preview}"
-//             data-source="${original}"
-//              alt="Tulips"
-//          />
-//         </a>
-//         </li>
-//         `
-//     }).join('')
-// }
-
-
-function createImageElement(item) {
-   return item.map(({preview,original,description}) => {
+function createImageElement(gallery) {
+   return gallery.map(({preview,original,description}) => {
         return `
         <li class="gallery__item">
-    
+        <a
+            class="gallery__link"
+            href="${original}">
         <img
             class="gallery__image"
             src="${preview}"
             data-source="${original}"
              alt="${description}"
          />
+        </a>
         </li>
         `
     }).join('')
 }
 
-
 function onTargetImgClick(e) {
     
-  
+    e.preventDefault();
     const elementTarget = e.target;
     const IsImageElement = elementTarget.classList.contains('gallery__image');
     const elementDataSource = elementTarget.dataset.source;
@@ -73,10 +54,15 @@ function onTargetImgClick(e) {
 }
 
 function onBtnClickClose(e) {
-     lightboxRef.classList.remove('is-open');
+    lightboxRef.classList.remove('is-open');
+    lightBoxImageRef.src = '';
+    lightBoxImageRef.alt = '';
  }
 
 
+// function onModalClose() {
+    
 
+// }
 
 
