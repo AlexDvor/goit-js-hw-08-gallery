@@ -10,9 +10,9 @@ const overlayRef = document.querySelector('.lightbox__overlay');
 const resultCreatImageElement = createImageElement(imagesList);
 
 listGalleryRef.insertAdjacentHTML('beforeend', resultCreatImageElement)
-listGalleryRef.addEventListener('click', onTargetImgClick)
-closeBtnRef.addEventListener('click', onBtnClickClose)
-
+listGalleryRef.addEventListener('click', onOpenModal)
+closeBtnRef.addEventListener('click', onCloseModal)
+overlayRef.addEventListener('click', onBackdropClick)
 
 
 function createImageElement(gallery) {
@@ -34,8 +34,8 @@ function createImageElement(gallery) {
     }).join('')
 }
 
-function onTargetImgClick(e) {
-    
+function onOpenModal(e) {
+    window.addEventListener('keydown', onKeyDownClick)
     e.preventDefault();
     const elementTarget = e.target;
     const IsImageElement = elementTarget.classList.contains('gallery__image');
@@ -53,16 +53,22 @@ function onTargetImgClick(e) {
 
 }
 
-function onBtnClickClose(e) {
+function onCloseModal(e) {
+    window.removeEventListener('keydown', onKeyDownClick)
     lightboxRef.classList.remove('is-open');
     lightBoxImageRef.src = '';
     lightBoxImageRef.alt = '';
  }
 
+function onBackdropClick(e) {
+    if (e.currentTarget === e.target) {
+        onCloseModal()
+    }
+}
 
-// function onModalClose() {
-    
-
-// }
-
-
+function onKeyDownClick(e) {
+    if (e.code === "Escape") {
+        onCloseModal()
+    }
+}
+ 
