@@ -67,8 +67,8 @@ function onBackdropClick(e) {
 }
 
 function onKeyDownClick(e) {
+   
     if (e.code === "Escape") {
         onCloseModal()
     }
 }
- 
