@@ -48,16 +48,14 @@ function onOpenModal(e) {
   
 
     lightboxRef.classList.add('is-open');
-    lightBoxImageRef.src =`${elementDataSource}`
-    lightBoxImageRef.alt =`${altValue}`
+    changesAttributeImage(elementDataSource,altValue)
 
 }
 
 function onCloseModal(e) {
     window.removeEventListener('keydown', onKeyDownClick)
     lightboxRef.classList.remove('is-open');
-    lightBoxImageRef.src = '';
-    lightBoxImageRef.alt = '';
+    changesAttributeImage('','')
  }
 
 function onBackdropClick(e) {
@@ -72,3 +70,9 @@ function onKeyDownClick(e) {
         onCloseModal()
     }
 }
+
+function changesAttributeImage(srcElement, altElement) {
+    lightBoxImageRef.src = srcElement;
+    lightBoxImageRef.alt = altElement;
+}
+
